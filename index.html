@@ -18,8 +18,10 @@
     padding: 0;
     height: 100%;
     background: var(--bg);
-    background-image: radial-gradient(var(--dot) 1.5px, transparent 1.5px);
-    background-size: 28px 28px;
+    background-image: url('https://ttovarkaa.github.io/secretticket/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     overflow: hidden;
     font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
     cursor: pointer;
@@ -35,44 +37,24 @@
     justify-content: center;
   }
 
-  .hint {
-    position: absolute;
-    bottom: 8%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #d8d4cf;
-    font-size: clamp(14px, 2.4vw, 22px);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    opacity: 0.85;
-    text-align: center;
-    transition: opacity 0.6s ease;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
-  }
-
   .heart { color: #b9b3ff; }
 
   .ticket {
     position: absolute;
     width: min(82vw, 900px);
-    aspect-ratio: 2590 / 760;
-    border-radius: 14px;
-    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 25px 40px rgba(0,0,0,0.6));
     opacity: 0;
     will-change: transform, opacity;
   }
 
   .ticket-top {
-    background-image: url('assets/ticket_top.png');
     transform: translate(-150vw, -40vh) rotate(-25deg) scale(0.6);
     top: 30%;
   }
 
   .ticket-bottom {
-    background-image: url('assets/ticket_bottom.png');
     transform: translate(150vw, 40vh) rotate(25deg) scale(0.6);
     top: 60%;
   }
@@ -100,10 +82,6 @@
     transition-delay: 0.18s;
   }
 
-  .stage.flown .hint {
-    opacity: 0;
-  }
-
   .signature {
     position: absolute;
     bottom: 6%;
@@ -124,11 +102,37 @@
     transform: translateX(-50%) translateY(0);
   }
 
+  /* Mobile: show only the blue ticket, rotated to fill portrait screen */
+  @media (max-width: 640px) {
+    .ticket-top {
+      display: none;
+    }
+
+    .ticket-bottom {
+      width: 92vh;
+      max-width: none;
+      height: auto;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(90deg) scale(0.45);
+      transform-origin: center center;
+    }
+
+    .stage.flown .ticket-bottom {
+      opacity: 1;
+      transform: translate(-50%, -50%) rotate(-90deg) scale(1);
+    }
+
+    .signature {
+      display: none;
+    }
+  }
+
   /* Intro screen */
   .intro {
     position: fixed;
     inset: 0;
-    background: #e0241b;
+    background: #303030;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -163,9 +167,8 @@
   </div>
 
   <div class="stage" id="stage">
-    <div class="ticket ticket-top"></div>
-    <div class="ticket ticket-bottom"></div>
-    <div class="hint">Нажмите на экран ✨</div>
+    <img class="ticket ticket-top" src="https://ttovarkaa.github.io/secretticket/white.png" alt="">
+    <img class="ticket ticket-bottom" src="https://ttovarkaa.github.io/secretticket/blue.png" alt="">
     <div class="signature">С днем рождения, Рома <span class="heart">❤</span></div>
   </div>
 
